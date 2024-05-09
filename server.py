@@ -1,4 +1,3 @@
-# server.py
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 from urllib.parse import urlparse
@@ -6,17 +5,6 @@ from connection import setup_database
 from crud import create_todo, update_todo, delete_todo, get_todo, get_todo_by_id
 
 class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
-    # def do_GET(self):
-    #     parsed_path = urlparse(self.path)
-    #     if parsed_path.path == '/todos':
-    #         todos = get_todo(engine, metadata)
-    #         todos_dict = [dict(todo) for todo in todos]  # Convert each row to a dictionary
-    #         self._set_headers()
-    #         self.wfile.write(json.dumps(todos_dict).encode())  # Serialize the list of dictionaries
-    #     else:
-    #         self._set_headers(404)
-    #         self.wfile.write(json.dumps({"error": "Not found"}).encode())
-
     def do_GET(self):
         parsed_path = urlparse(self.path)
         if parsed_path.path == '/todos':

@@ -3,7 +3,6 @@ from sqlalchemy.engine import URL
 from alembic import command
 from alembic.config import Config
 
-
 url = URL.create(
     drivername="postgresql",
     username="postgres",
@@ -12,13 +11,7 @@ url = URL.create(
     database="testdb",
     port="5432"
 )
-	#   'ENGINE': 'django.db.backends.postgresql',
-    #     'NAME': 'myproject',
-    #     'USER': 'postgres',
-    #     'PASSWORD': '1234',
-    #     'HOST': 'localhost',
-    #     'PORT': '5432',
-print(url)
+
 engine = create_engine(url)
 
 def setup_database():

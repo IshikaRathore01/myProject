@@ -37,12 +37,3 @@ def delete_todo(engine, metadata, id):
         session.execute(todos.delete().where(todos.c.id == id))
         session.commit()
   
-
-# delete_todo(35)
-# update_todo(3, "nail extention", "moring yoda and some workout")
-# def delete_user(engine, metadata, user_id):
-#     users = Table('users', metadata, autoload=True, autoload_with=engine)
-#     Session = sessionmaker(bind=engine)
-#     with Session() as session:
-#         session.execute(users.delete().where(users.c.id == user_id))
-#         session.commit()

@@ -5,7 +5,6 @@ from connection import engine
 
 Base = declarative_base()
 
-
 class Todo(Base):
     __tablename__ = 'todos'
 
