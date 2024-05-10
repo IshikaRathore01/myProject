@@ -1,5 +1,11 @@
 # Generic single-database configuration.
 
 ## Apply Migration
-- alembic revision --autogenerate
-- alembic upgrade head
+
+To Apply the Migration, run:
+
+```
+alembic revision --autogenerate
+alembic upgrade head
+
+```
