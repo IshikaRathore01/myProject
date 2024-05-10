@@ -12,9 +12,11 @@ class Sources(Base):
     id = Column(String, primary_key=True, default=str(uuid.uuid4()))
     sourceName = Column(String(100), nullable=False)
     url = Column(String(100), nullable=False)
+    role_id = Column(String, ForeignKey('roles.id'), nullable=False)
+    role = relationship("Roles", backref="sources")
     created_on = Column(DateTime(), default=datetime.now)
     updated_on = Column(DateTime(), default=datetime.now, onupdate=datetime.now)
-
+    
 class Skills(Base):
     __tablename__= 'skills'
 
@@ -61,7 +63,13 @@ class AnswerCorrectness(Base):
     created_on = Column(DateTime(), default=datetime.now)
     updated_on = Column(DateTime(), default=datetime.now, onupdate=datetime.now)
 
+class Roles(Base):
+    __tablename__= 'roles'
 
+    id = Column(String, primary_key=True, default=str(uuid.uuid4()))
+    ROLE_CHOICES = Enum('1', '2', '3', name='role_choice')
+    role = Column(ROLE_CHOICES, nullable=False)
+    
 
 
 
