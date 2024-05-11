@@ -59,9 +59,21 @@ class AnswerCorrectness(Base):
     answer = relationship("Answers", backref="answerCorrectness")
     source_id = Column(String, ForeignKey('sources.id'), nullable=False)
     reviewed_by = Column(String, ForeignKey('sources.id'))
-    source = relationship("Sources", backref="answerCorrectness")
+    source = relationship("Sources", foreign_keys=[source_id], backref="answerCorrectness")
+    # source = relationship('Source', foreign_keys=[source_id])
     created_on = Column(DateTime(), default=datetime.now)
     updated_on = Column(DateTime(), default=datetime.now, onupdate=datetime.now)
+
+    def can_create(self, user_role):
+        return user_role == 'checker'
+
+    def can_update(self, user_role, user_id):
+        # Check if the user is the checker of this answer correctness
+        return user_role == 'checker' and user_id == self.reviewed_by
+
+    def can_delete(self, user_role, user_id):
+        # Check if the user is the checker of this answer correctness
+        return user_role == 'checker' and user_id == self.reviewed_by
 
 class Roles(Base):
     __tablename__= 'roles'
@@ -71,6 +83,10 @@ class Roles(Base):
     role = Column(ROLE_CHOICES, nullable=False)
     
 
+# class Roles(Base):
+#     __tablename__= 'roles'
 
+#     id = Column(String, primary_key=True, default=str(uuid.uuid4()))
+#     role = Column(Enum('maker', 'checker', 'both', name='role_choice'), nullable=False)
 
-Base.metadata.create_all(engine)
+# Base.metadata.create_all(engine)

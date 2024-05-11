@@ -1,39 +1,13 @@
-from connection import engine
-from sqlalchemy import Table, Column, Integer, String
+from sqlalchemy import Table
 from sqlalchemy.orm import sessionmaker
+from model import Skills,Roles
 
-def create_todo(engine, metadata, title, content):
-    todos = Table('todos', metadata, autoload=True, autoload_with=engine)
+def get_skills(engine):
     Session = sessionmaker(bind=engine)
     with Session() as session:
-        session.execute(todos.insert().values(title=title, content=content))
-        session.commit()
-
-def get_todo(engine, metadata):
-    todos = Table('todos', metadata, autoload=True, autoload_with=engine)
-    Session = sessionmaker(bind=engine)
-    with Session() as session:
-        result = session.execute(todos.select())
-        return result.fetchall()
+        return session.query(Skills).all()
     
-def get_todo_by_id(engine, metadata, id):
-    todos_table = Table('todos', metadata, autoload=True, autoload_with=engine)
+def get_roles(engine):
     Session = sessionmaker(bind=engine)
     with Session() as session:
-        todo = session.query(todos_table).filter(todos_table.c.id == id).first()
-        return todo
-
-def update_todo(engine, metadata, id, title, content):
-    todos = Table('todos', metadata, autoload=True, autoload_with=engine)
-    Session = sessionmaker(bind=engine)
-    with Session() as session:
-        session.execute(todos.update().where(todos.c.id == id).values(title=title, content=content))
-        session.commit()
-
-def delete_todo(engine, metadata, id):
-    todos = Table('todos', metadata, autoload=True, autoload_with=engine)
-    Session = sessionmaker(bind=engine)
-    with Session() as session:
-        session.execute(todos.delete().where(todos.c.id == id))
-        session.commit()
-  
+        return session.query(Roles).all()
